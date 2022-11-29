@@ -1,9 +1,21 @@
 import AddContact from "./AddContact";
 import ContactList from "./ContactList";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const ContactManager = () => {
   const [contacts, setContacts] = useState([]);
+
+  useEffect(() => {
+    setContacts(
+      localStorage.getItem("contacts")
+        ? JSON.parse(localStorage.getItem("contacts"))
+        : []
+    );
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("contacts", JSON.stringify(contacts));
+  }, [contacts]);
 
   const addContactHandler = (contact) => {
     setContacts([...contacts, { ...contact, id: Date.now() }]);
