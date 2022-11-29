@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AddContact = ({ onAddContact }) => {
+  const navigate = useNavigate();
   const [contact, setContact] = useState({ name: "", email: "" });
 
   const changeHandler = (e) => {
@@ -14,10 +16,11 @@ const AddContact = ({ onAddContact }) => {
     }
     onAddContact(contact);
     setContact({ name: "", email: "" });
+    navigate("/");
   };
 
   return (
-    <div>
+    <div className="w-[40rem] ">
       <h2 className="font-bold text-lg mb-2.5">Add Contact</h2>
       <form
         onSubmit={submitFormHandler}

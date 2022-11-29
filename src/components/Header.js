@@ -1,7 +1,10 @@
+import Navigation from "./Navigation";
+
 const Header = () => {
   return (
-    <div className="w-full text-center mb-8 border-b border-solid border-gray-300 p-4">
-      <h1 className="font-bold text-xl">Contact Manager</h1>
+    <div className="w-full text-center pb-2">
+      <Navigation />
+      <h1 className="font-bold text-xl p-5">Contact Manager</h1>
     </div>
   );
 };
