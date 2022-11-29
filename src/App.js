@@ -1,8 +1,10 @@
 import ContactManager from "./components/ContactManager";
+import Header from "./components/Header";
 
 function App() {
   return (
-    <div className="w-full h-screen flex flex-col items-center p-5">
+    <div className="w-full h-screen flex flex-col items-center">
+      <Header />
       <ContactManager />
     </div>
   );
