@@ -12,6 +12,7 @@ import {
   deleteContact,
   getContacts,
   postContact,
+  putContact,
 } from "./services/CRUDContactService";
 
 function App() {
@@ -44,6 +45,16 @@ function App() {
       toast.error("there is an Error!");
     }
   };
+  const editContactHandler = async (id, contact) => {
+    try {
+      await putContact(id, contact);
+      const { data } = await getContacts();
+      setContacts(data);
+      toast.success("Cantact Updated :)");
+    } catch (error) {
+      toast.error("there is an Error!");
+    }
+  };
 
   return (
     <div className="w-full h-screen flex flex-col items-center">
@@ -63,7 +74,12 @@ function App() {
           />
           <Route
             path="/contact/:id"
-            element={<ContactDetail onDelete={deleteHandler} />}
+            element={
+              <ContactDetail
+                onDelete={deleteHandler}
+                onPutContact={editContactHandler}
+              />
+            }
           />
 
           {/* {routes.map((route) => (

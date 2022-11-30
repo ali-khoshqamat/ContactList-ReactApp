@@ -1,22 +1,59 @@
-import { FaTrashAlt, FaUserCircle } from "react-icons/fa";
+import { useState } from "react";
+import { FaRegEdit, FaTrashAlt, FaUserEdit } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 
-const ContactDetail = ({ onDelete }) => {
+const ContactDetail = ({ onDelete, onPutContact }) => {
+  // const params = useParams();
   const navigate = useNavigate();
   const { name, email, id } = useLocation().state;
+  const [contact, setContact] = useState({ name, email, id });
+
+  const changeHandler = (e) => {
+    setContact({ ...contact, [e.target.name]: e.target.value });
+  };
+
   return (
     <div className="w-[40rem]">
-      <div className="flex justify-between items-center py-2.5 px-5 mb-2.5 rounded-md bg-gray-100 border-x">
+      <div className="flex justify-between items-center py-2.5 px-5 mb-2.5 rounded-md bg-gray-100 border">
         <div className="flex items-center gap-x-4">
-          <FaUserCircle className="text-4xl" />
-          <div>
-            <p className="font-bold">{name}</p>
-            <p>{email}</p>
+          <FaUserEdit className="text-4xl" />
+          <div className="flex flex-col">
+            <input
+              className="outline-none font-bold bg-inherit"
+              type="text"
+              name="name"
+              value={contact.name}
+              placeholder={name}
+              onChange={changeHandler}
+            />
+            <input
+              className="outline-none bg-inherit checked:bg-red-600 "
+              type="email"
+              name="email"
+              value={contact.email}
+              placeholder={email}
+              onChange={changeHandler}
+            />
           </div>
         </div>
-        <button onClick={() => (onDelete(id), navigate("/"))}>
-          <FaTrashAlt className="w-9 h-9 p-2 text-red-600" />
-        </button>
+        <div className="flex gap-x-1.5">
+          <button
+            onClick={() => {
+              onPutContact(id, contact);
+              navigate("/");
+            }}
+          >
+            <FaRegEdit className="w-9 h-9 p-1.5 text-green-600" />
+          </button>
+          <button
+            onClick={() => {
+              onDelete(id);
+              navigate("/");
+            }}
+          >
+            <FaTrashAlt className="w-9 h-9 p-2 text-red-600 " />
+          </button>
+        </div>
       </div>
     </div>
   );
