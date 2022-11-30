@@ -1,22 +1,28 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { postContact } from "../services/CRUDContactService";
 
-const AddContact = ({ onAddContact }) => {
+const AddContact = () => {
   const navigate = useNavigate();
   const [contact, setContact] = useState({ name: "", email: "" });
 
   const changeHandler = (e) => {
     setContact({ ...contact, [e.target.name]: e.target.value });
   };
-  const submitFormHandler = (e) => {
+  const submitFormHandler = async (e) => {
     e.preventDefault();
     if (!contact.name || !contact.email) {
       alert("all fildes are mandatory!");
       return;
     }
-    onAddContact(contact);
-    setContact({ name: "", email: "" });
-    navigate("/");
+    try {
+      await postContact(contact);
+      toast.success("Cantact Added :)");
+      navigate("/");
+    } catch (error) {
+      toast.error("there is an Error!");
+    }
   };
 
   return (

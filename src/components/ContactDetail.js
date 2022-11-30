@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { FaRegEdit, FaTrashAlt, FaUserEdit } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { deleteContact, putContact } from "../services/CRUDContactService";
 
-const ContactDetail = ({ onDelete, onPutContact }) => {
+const ContactDetail = ({ onPutContact }) => {
   // const params = useParams();
   const navigate = useNavigate();
   const { name, email, id } = useLocation().state;
@@ -10,6 +12,24 @@ const ContactDetail = ({ onDelete, onPutContact }) => {
 
   const changeHandler = (e) => {
     setContact({ ...contact, [e.target.name]: e.target.value });
+  };
+  const deleteHandler = async (id) => {
+    try {
+      await deleteContact(id);
+      toast.success("Contact was Deleted :)");
+      navigate("/");
+    } catch (error) {
+      toast.error("there is an Error!");
+    }
+  };
+  const editContactHandler = async (id, contact) => {
+    try {
+      await putContact(id, contact);
+      toast.success("Cantact Updated :)");
+      navigate("/");
+    } catch (error) {
+      toast.error("there is an Error!");
+    }
   };
 
   return (
@@ -37,20 +57,10 @@ const ContactDetail = ({ onDelete, onPutContact }) => {
           </div>
         </div>
         <div className="flex gap-x-1.5">
-          <button
-            onClick={() => {
-              onPutContact(id, contact);
-              navigate("/");
-            }}
-          >
+          <button onClick={() => editContactHandler(id, contact)}>
             <FaRegEdit className="w-9 h-9 p-1.5 text-green-600" />
           </button>
-          <button
-            onClick={() => {
-              onDelete(id);
-              navigate("/");
-            }}
-          >
+          <button onClick={() => deleteHandler(id)}>
             <FaTrashAlt className="w-9 h-9 p-2 text-red-600 " />
           </button>
         </div>
