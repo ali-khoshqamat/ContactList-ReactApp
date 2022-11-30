@@ -1,3 +1,5 @@
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import ContactDetail from "./components/ContactDetail";
@@ -6,31 +8,46 @@ import AddContact from "./pages/AddContact";
 import ContactList from "./pages/ContactList";
 import NotFound from "./pages/NotFound";
 import routes from "./routes";
+import {
+  deleteContact,
+  getContacts,
+  postContact,
+} from "./services/CRUDContactService";
 
 function App() {
   const [contacts, setContacts] = useState([]);
 
   useEffect(() => {
-    setContacts(
-      localStorage.getItem("contacts")
-        ? JSON.parse(localStorage.getItem("contacts"))
-        : []
-    );
+    getContacts("/contacts")
+      .then(({ data }) => {
+        setContacts(data);
+        toast.success("All Contacts Loaded :)");
+      })
+      .catch((error) => toast.error("there is an Error!"));
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem("contacts", JSON.stringify(contacts));
-  }, [contacts]);
-
-  const addContactHandler = (contact) => {
-    setContacts([...contacts, { ...contact, id: Date.now() }]);
+  const addContactHandler = async (contact) => {
+    try {
+      const { data } = await postContact(contact);
+      setContacts([...contacts, data]);
+      toast.success("Cantact Added :)");
+    } catch (error) {
+      toast.error("there is an Error!");
+    }
   };
-  const deleteHandler = (id) => {
-    setContacts(contacts.filter((c) => c.id !== id));
+  const deleteHandler = async (id) => {
+    try {
+      await deleteContact(id);
+      setContacts(contacts.filter((c) => c.id !== id));
+      toast.success("Contact was Deleted :)");
+    } catch (error) {
+      toast.error("there is an Error!");
+    }
   };
 
   return (
     <div className="w-full h-screen flex flex-col items-center">
+      <ToastContainer />
       <Layout>
         <Routes>
           <Route path="*" element={<NotFound />} />
