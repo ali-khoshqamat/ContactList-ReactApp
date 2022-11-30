@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { deleteContact, putContact } from "../services/CRUDContactService";
 
-const ContactDetail = ({ onPutContact }) => {
+const ContactDetail = () => {
   // const params = useParams();
   const navigate = useNavigate();
   const { name, email, id } = useLocation().state;
