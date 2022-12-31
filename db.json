@@ -1,0 +1,24 @@
+{
+  "contacts": [
+    {
+      "name": "Ali Khoshqamat",
+      "email": "ali_khoshghamat@yahoo.com",
+      "id": 1
+    },
+    {
+      "name": "Maryam",
+      "email": "maryam@ex.com",
+      "id": 2
+    },
+    {
+      "name": "Farhad",
+      "email": "farhad@ex.com",
+      "id": 3
+    },
+    {
+      "name": "Sara",
+      "email": "sara@ex.com",
+      "id": 4
+    }
+  ]
+}
