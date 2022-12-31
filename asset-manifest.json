@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/ContactList-ReactApp/static/css/main.94c36015.css",
-    "main.js": "/ContactList-ReactApp/static/js/main.6706300c.js",
+    "main.js": "/ContactList-ReactApp/static/js/main.350fd5a7.js",
     "index.html": "/ContactList-ReactApp/index.html",
     "main.94c36015.css.map": "/ContactList-ReactApp/static/css/main.94c36015.css.map",
-    "main.6706300c.js.map": "/ContactList-ReactApp/static/js/main.6706300c.js.map"
+    "main.350fd5a7.js.map": "/ContactList-ReactApp/static/js/main.350fd5a7.js.map"
   },
   "entrypoints": [
     "static/css/main.94c36015.css",
-    "static/js/main.6706300c.js"
+    "static/js/main.350fd5a7.js"
   ]
 }
